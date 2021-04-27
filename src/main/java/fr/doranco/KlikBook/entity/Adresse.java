@@ -1,4 +1,4 @@
-package fr.doranco.jsf.entity;
+package fr.doranco.KlikBook.entity;
 
 import java.io.Serializable;
 
@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-//@Table(name = "adresse", schema = "db_hibernate")
 @Table(name = "adresse")
 public class Adresse implements Serializable {
 
@@ -27,7 +26,7 @@ public class Adresse implements Serializable {
 	private Integer id;
 
 	@NotNull
-	@Column(name = "numero", length = 4, nullable = false)
+	@Column(name = "numero", nullable = false)
 	private Integer numero;
 
 	@NotEmpty
@@ -51,7 +50,6 @@ public class Adresse implements Serializable {
 	}
 
 	public Adresse(@NotNull Integer numero, String rue, String ville, String codePostal) {
-		super();
 		this.numero = numero;
 		this.rue = rue;
 		this.ville = ville;
@@ -98,18 +96,15 @@ public class Adresse implements Serializable {
 		this.ville = ville;
 	}
 
-	@Override
-	public String toString() {
-		return "Adresse [id=" + id + ", numero=" + numero + ", rue=" + rue + ", codePostal=" + codePostal + ", ville="
-				+ ville + "]";
-	}
-
 	public User getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	
+	@Override
+	public String toString() {
+		return "Adresse [id=" + id + ", numero=" + numero + ", rue=" + rue + ", codePostal=" + codePostal + ", ville="
+				+ ville + "]";
 	}
 
 	

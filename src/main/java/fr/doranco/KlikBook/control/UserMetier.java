@@ -1,11 +1,11 @@
-package fr.doranco.jsf.control;
+package fr.doranco.KlikBook.control;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.doranco.jsf.entity.User;
-import fr.doranco.jsf.model.IUserDao;
-import fr.doranco.jsf.model.UserDao;
+import fr.doranco.KlikBook.entity.User;
+import fr.doranco.KlikBook.model.IUserDao;
+import fr.doranco.KlikBook.model.UserDao;
 
 public class UserMetier implements IUserMetier {
 

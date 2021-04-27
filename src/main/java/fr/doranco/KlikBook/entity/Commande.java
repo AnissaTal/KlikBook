@@ -1,4 +1,4 @@
-package fr.doranco.jsf.entity;
+package fr.doranco.KlikBook.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,9 +49,16 @@ public class Commande {
 	private Date dateLivraison;
 	
 	@NotNull
+	@Column(name = "total_remise", length = 10, nullable = false)
+	private float totalRemise;
+	
+	@NotNull
 	@Column(name = "total_general", length = 10, nullable = false)
 	private float totalGeneral;
 	
+	@NotNull
+	@Column(name = "frais_expedition", length = 10, nullable = false)
+	private float FraisExpedition;
 	
 	@OneToMany
 	(cascade=CascadeType.ALL,mappedBy= "commande",fetch = FetchType.LAZY)
@@ -64,26 +71,8 @@ public class Commande {
 	
 	public Commande() {
 		ligneDeCommande = new ArrayList<LigneDeCommande>();
+		user = new User();
 	}
-
-
-	
-
-
-	public User getUser() {
-		return user;
-	}
-
-
-
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-
-
 
 
 	public Commande( @NotNull Integer numero, @NotNull Date dateCreation, @NotNull Date dateLivraison,
@@ -94,14 +83,12 @@ public class Commande {
 		this.dateLivraison = dateLivraison;
 		this.totalGeneral = totalGeneral;
 		ligneDeCommande = new ArrayList<LigneDeCommande>();
-		this.user = user;
+	     user = new User();
 	}
 
-
-
-
-
-	public Integer getId() {
+	
+	
+    public Integer getId() {
 		return id;
 	}
 
@@ -141,6 +128,16 @@ public class Commande {
 	}
 
 
+	public float getTotalRemise() {
+		return totalRemise;
+	}
+
+
+	public void setTotalRemise(float totalRemise) {
+		this.totalRemise = totalRemise;
+	}
+
+
 	public float getTotalGeneral() {
 		return totalGeneral;
 	}
@@ -151,20 +148,33 @@ public class Commande {
 	}
 
 
+	public float getFraisExpedition() {
+		return FraisExpedition;
+	}
+
+
+	public void setFraisExpedition(float fraisExpedition) {
+		FraisExpedition = fraisExpedition;
+	}
+
+
 	public List<LigneDeCommande> getLigneDeCommande() {
 		return ligneDeCommande;
 	}
 
 
-	public void setLigneDeCommande(List<LigneDeCommande> ligneDeCommande) {
-		this.ligneDeCommande = ligneDeCommande;
+	public User getUser() {
+		return user;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Commande [id=" + id + ", numero=" + numero + ", dateCreation=" + dateCreation + ", dateLivraison="
-				+ dateLivraison + ", totalGeneral=" + totalGeneral + ", ligneDeCommande=" + ligneDeCommande + "]";
+				+ dateLivraison + ", totalRemise=" + totalRemise + ", totalGeneral=" + totalGeneral
+				+ ", FraisExpedition=" + FraisExpedition + ", ligneDeCommande=" + ligneDeCommande + ", user=" + user
+				+ "]";
 	}
+
 
 }

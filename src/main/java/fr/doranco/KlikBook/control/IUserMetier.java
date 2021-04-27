@@ -1,8 +1,8 @@
-package fr.doranco.jsf.control;
+package fr.doranco.KlikBook.control;
 
 import java.util.List;
 
-import fr.doranco.jsf.entity.User;
+import fr.doranco.KlikBook.entity.User;
 
 public interface IUserMetier {
 

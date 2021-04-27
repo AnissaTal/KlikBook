@@ -1,5 +1,6 @@
-package fr.doranco.jsf.entity;
+package fr.doranco.KlikBook.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,15 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.validation.constraints.NotNull;
 
 
 @Entity
-@Table(name = "lignedecommande")
+@Table(name = "ligne_de_commande")
 public class LigneDeCommande {
 	
 	@Id
@@ -28,12 +27,17 @@ public class LigneDeCommande {
 	private Integer quantite;
 
 	@NotNull
-	@Column(name = "prix", nullable = false)
-	private float prix;
-
+	@Column(name = "prix_unitaire", nullable = false)
+	private float prixUnitaire;
+	
 	@NotNull
-	@Column(name = "article", nullable = false)
-	private String article;
+	@Column(name = "remise_article", nullable = false)
+	private Integer remiseArticle;
+
+
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "livre")
+	@Column(name = "livre_id", nullable = false)
+	private Livre livre;
 	
 	@ManyToOne
 	@JoinColumn(name="commande_id",nullable=false)
@@ -41,65 +45,72 @@ public class LigneDeCommande {
 	
 	
 	public LigneDeCommande() {
-		super();
-		// TODO Auto-generated constructor stub
+		livre = new Livre();
+		commande = new Commande();
 	}
 
 	
-
-	public Commande getCommande() {
-		return commande;
-	}
-
-
-
-	public void setCommande(Commande commande) {
-		this.commande = commande;
-	}
-
-
-
-	public LigneDeCommande(Integer quantite, float prix, String article, Commande commande) {
-		super();
+	public LigneDeCommande(Integer id, @NotNull Integer quantite, @NotNull float prixUnitaire,
+			@NotNull Integer remiseArticle, Livre livre, Commande commande) {
+		this.id = id;
 		this.quantite = quantite;
-		this.prix = prix;
-		this.article = article;
-		this.commande = commande;
+		this.prixUnitaire = prixUnitaire;
+		this.remiseArticle = remiseArticle;
+		livre = new Livre();
+		commande = new Commande();
 	}
-
 
 
 	public Integer getId() {
 		return id;
 	}
 
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 
 	public Integer getQuantite() {
 		return quantite;
 	}
 
+
 	public void setQuantite(Integer quantite) {
 		this.quantite = quantite;
 	}
 
-	public float getPrix() {
-		return prix;
+
+	public float getPrixUnitaire() {
+		return prixUnitaire;
 	}
 
-	public void setPrix(float prix) {
-		this.prix = prix;
+
+	public void setPrixUnitaire(float prixUnitaire) {
+		this.prixUnitaire = prixUnitaire;
 	}
 
-	public String getArticle() {
-		return article;
+
+	public Integer getRemiseArticle() {
+		return remiseArticle;
 	}
 
-	public void setArticle(String article) {
-		this.article = article;
+
+	public void setRemiseArticle(Integer remiseArticle) {
+		this.remiseArticle = remiseArticle;
 	}
+
+
+	public Livre getLivre() {
+		return livre;
+	}
+
+
+	public Commande getCommande() {
+		return commande;
+	}
+
+
 
 	
 	

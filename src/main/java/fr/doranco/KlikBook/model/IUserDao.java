@@ -1,22 +1,15 @@
-package fr.doranco.jsf.model;
+package fr.doranco.KlikBook.model;
 
 import java.util.List;
 import java.util.Map;
 
-import fr.doranco.jsf.entity.User;
+import fr.doranco.KlikBook.entity.User;
 
 
 public interface IUserDao {
 
-	void addUser(User user) throws Exception;
-
-	User getUser(Integer id) throws Exception;
-
+	
 	List<User> getUsers() throws Exception;
-
-	void updateUser(User user) throws Exception;
-
-	void removeUser(User user) throws Exception;
 
 	User getUserByEmail(String email) throws Exception;
 

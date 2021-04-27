@@ -1,4 +1,4 @@
-package fr.doranco.jsf.beans;
+package fr.doranco.KlikBook.beans;
 
 import java.io.Serializable;
 
@@ -6,9 +6,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import fr.doranco.jsf.control.IUserMetier;
-import fr.doranco.jsf.control.UserMetier;
-import fr.doranco.jsf.entity.User;
+import fr.doranco.KlikBook.control.IUserMetier;
+import fr.doranco.KlikBook.control.UserMetier;
+import fr.doranco.KlikBook.entity.User;
 
 @ManagedBean(name = "loginBean")
 @SessionScoped

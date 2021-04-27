@@ -1,11 +1,11 @@
-package fr.doranco.jsf.model;
+package fr.doranco.KlikBook.model;
 
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import fr.doranco.jsf.entity.Commande;
+import fr.doranco.KlikBook.entity.Commande;
 
 public class CommandeDao implements ICommandeDao{
 

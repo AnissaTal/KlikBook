@@ -5,7 +5,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/db_hibernate?useSSL=false&amp;serverTimeZone=UTC</property>
+		<property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/klikbookEssai_db?useSSL=false&amp;serverTimeZone=UTC</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">root</property>
 		<property name="hibernate.show_sql">true</property>
@@ -14,9 +14,14 @@
 		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 		<property name="hibernate.hbm2ddl.auto">create</property>   <!-- create/create-drop/update/validate -->
 		<property name="hibernate.charset">UTF-8</property>
-		<mapping class="fr.doranco.jsf.entity.Adresse"/>
-		<mapping class="fr.doranco.jsf.entity.User"/>
-		<mapping class="fr.doranco.jsf.entity.Commande"/>
-		<mapping class="fr.doranco.jsf.entity.LigneDeCommande"/>
+		<mapping class="fr.doranco.KlikBook.entity.Adresse"/>
+		<mapping class="fr.doranco.KlikBook.entity.User"/>
+		<mapping class="fr.doranco.KlikBook.entity.Commande"/>
+		<mapping class="fr.doranco.KlikBook.entity.ArticlePanier"/>
+		<mapping class="fr.doranco.KlikBook.entity.CartePaiement"/>
+		<mapping class="fr.doranco.KlikBook.entity.Categorie"/>
+		<mapping class="fr.doranco.KlikBook.entity.Commentaire"/>
+		<mapping class="fr.doranco.KlikBook.entity.LigneDeCommande"/>
+		<mapping class="fr.doranco.KlikBook.entity.Livre"/>
 	</session-factory>
 </hibernate-configuration>

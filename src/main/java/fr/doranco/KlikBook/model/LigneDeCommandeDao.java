@@ -1,8 +1,8 @@
-package fr.doranco.jsf.model;
+package fr.doranco.KlikBook.model;
 
 import java.util.List;
 
-import fr.doranco.jsf.entity.LigneDeCommande;
+import fr.doranco.KlikBook.entity.LigneDeCommande;
 
 public class LigneDeCommandeDao implements ILigneDeCommandeDao{
 

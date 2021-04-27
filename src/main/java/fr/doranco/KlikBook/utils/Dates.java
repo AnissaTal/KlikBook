@@ -1,4 +1,4 @@
-package fr.doranco.hibernate.utils;
+package fr.doranco.KlikBook.utils;
 
 import java.text.SimpleDateFormat;
 

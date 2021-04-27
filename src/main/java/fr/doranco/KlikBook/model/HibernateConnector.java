@@ -1,4 +1,4 @@
-package fr.doranco.jsf.model;
+package fr.doranco.KlikBook.model;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

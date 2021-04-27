@@ -1,22 +1,27 @@
-package fr.doranco.jsf.entity;
+package fr.doranco.KlikBook.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "article")
-public class Article implements Serializable {
+public class Livre implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,32 +31,52 @@ public class Article implements Serializable {
 	private Integer id;
 
 	@NotEmpty
-	@Column(name = "nom", length = 50, nullable = false)
-	private String nom;
+	@Column(name = "titre", length = 45, nullable = false)
+	private String titre;
 
 	@NotEmpty
-	@Column(name = "description", length = 100, nullable = false)
-	private String description;
+	@Column(name = "auteur", length = 45, nullable = false)
+	private String auteur;
+	
+	
+	@NotEmpty
+	@Column(name = "annee",  nullable = false)
+	private Integer annee;
+	
 	
 	@NotEmpty
 	@Column(name = "prix", nullable = false)
 	private float prix;
 
 	@NotEmpty
+	@Column(name = "remise", nullable = false)
+	private Integer remise;
+
+	@NotEmpty
 	@Column(name = "stock", length = 100, nullable = false)
-	private String stock;
+	private Integer stock;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "livre", fetch = FetchType.LAZY)
+	private List<Commentaire> commentaires;
 	
-	public Article() {
-
+	@ManyToOne
+	@JoinColumn(name = "categorie_id", nullable = false)
+	private Categorie categorie;
+	
+	public Livre() {
+		commentaires = new ArrayList<Commentaire>();
+		categorie = new Categorie();
 	}
 
-	public Article(String nom, String description, float prix, String stock) {
-		super();
-		this.nom = nom;
-		this.description = description;
+	public Livre( String titre, String auteur, Integer annee, float prix, Integer remise, Integer stock) {
+		this.titre = titre;
+		this.auteur = auteur;
+		this.annee = annee;
 		this.prix = prix;
+		this.remise = remise;
 		this.stock = stock;
+		commentaires = new ArrayList<Commentaire>();
+		categorie = new Categorie();
 	}
 
 	public Integer getId() {
@@ -62,20 +87,28 @@ public class Article implements Serializable {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getTitre() {
+		return titre;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setTitre(String titre) {
+		this.titre = titre;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getAuteur() {
+		return auteur;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
+	}
+
+	public Integer getAnnee() {
+		return annee;
+	}
+
+	public void setAnnee(Integer annee) {
+		this.annee = annee;
 	}
 
 	public float getPrix() {
@@ -86,19 +119,45 @@ public class Article implements Serializable {
 		this.prix = prix;
 	}
 
-	public String getStock() {
+	public Integer getRemise() {
+		return remise;
+	}
+
+	public void setRemise(Integer remise) {
+		this.remise = remise;
+	}
+
+	public Integer getStock() {
 		return stock;
 	}
 
-	public void setStock(String stock) {
+	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+
+	public List<Commentaire> getCommentaires() {
+		return commentaires;
+	}
+
+	public Categorie getCategorie() {
+		return categorie;
 	}
 
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", nom=" + nom + ", description=" + description + ", prix=" + prix + ", stock="
-				+ stock + "]";
+		return "Livre [id=" + id + ", titre=" + titre + ", auteur=" + auteur + ", annee=" + annee + ", prix=" + prix
+				+ ", remise=" + remise + ", stock=" + stock + ", commentaires=" + commentaires + ", categorie="
+				+ categorie + "]";
 	}
+
+
+
+
+
+
+
+	
+	
 	
 	
 	

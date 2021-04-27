@@ -1,4 +1,4 @@
-package fr.doranco.jsf.model;
+package fr.doranco.KlikBook.model;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,42 +8,17 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import fr.doranco.jsf.entity.User;
+import fr.doranco.KlikBook.entity.User;
 
 public class UserDao implements IUserDao {
 
 	public UserDao() {
 	}
 
-	@Override
-	public void addUser(User user) throws Exception {
-		Transaction tx = null;
-		Session session = null;
-		try {
-			session = HibernateConnector.getSession();
-			tx = session.beginTransaction();
-			session.save(user);
-			//user.getAdresses().forEach(adresse -> session.save(adresse));
-			tx.commit();
-		} catch (Exception ex) {
-			if (tx != null)
-				tx.rollback();
-			ex.printStackTrace();
-		} finally {
-			if (session != null && session.isOpen())
-				session.close();
-		}
-	}
+	
+	
 
-	@Override
-	public User getUser(Integer id) throws Exception {
-		Session session = HibernateConnector.getSession();
-		User user = session.get(User.class, id);
-//		return session.find(User.class, id);
-		if (session != null && session.isOpen())
-			session.close();
-		return user;
-	}
+	
 
 	@Override
 	public List<User> getUsers() throws Exception {
@@ -59,44 +34,8 @@ public class UserDao implements IUserDao {
 		return users;
 	}
 
-	@Override
-	public void updateUser(User user) throws Exception {
-		Transaction tx = null;
-		Session session = null;
-		try {
-			session = HibernateConnector.getSession();
-			tx = session.beginTransaction();
-			session.update(user);
-			tx.commit();
-		} catch (Exception ex) {
-			if (tx != null)
-				tx.rollback();
-			ex.printStackTrace();
-		} finally {
-			if (session != null && session.isOpen())
-				session.close();
-		}
-	}
 
-	@Override
-	public void removeUser(User user) throws Exception {
-		
-		Transaction tx = null;
-		Session session = null;
-		try {
-			session = HibernateConnector.getSession();
-			tx = session.beginTransaction();
-			session.remove(user);
-			tx.commit();
-		} catch (Exception ex) {
-			if (tx != null)
-				tx.rollback();
-			ex.printStackTrace();
-		} finally {
-			if (session != null && session.isOpen())
-				session.close();
-		}
-	}
+
 
 	@Override
 	public User getUserByEmail(String email) throws Exception {
