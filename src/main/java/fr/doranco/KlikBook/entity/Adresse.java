@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "adresse")
 @NamedQueries({
 	@NamedQuery(name = "Adresse.findAll", query = "FROM Adresse a"),
-	//@NamedQuery(name = "Adresse.findByuserId", query = "SELECT a FROM Adresse a JOIN a.users u ON u.userId = :userId")	
+	
 })
 
 public class Adresse implements Serializable {
