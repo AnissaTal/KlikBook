@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -40,18 +43,24 @@ import javax.validation.constraints.NotNull;
 	@Column(name = "date_fin_validite", nullable = false)
 	private Date dateFinValidite;
 	
+	//@OneToMany pas sure? 
+	@JoinColumn(name="user_id",nullable=false)
+	private User user;
+	
 	public CartePaiement() {
+		user= new User();
 	}
 
 	
 	public CartePaiement(@NotNull String nomProprietaire, @NotNull String prenomProprietaire, @NotNull byte[] numero,
-			@NotNull byte[] cryptogramme, @NotNull Date dateFinValidite) {
-		super();
+			@NotNull byte[] cryptogramme, @NotNull Date dateFinValidite, User user) {
+	
 		this.nomProprietaire = nomProprietaire;
 		this.prenomProprietaire = prenomProprietaire;
 		this.numero = numero;
 		this.cryptogramme = cryptogramme;
 		this.dateFinValidite = dateFinValidite;
+		user= new User();
 	}
 
 
@@ -114,13 +123,20 @@ import javax.validation.constraints.NotNull;
 		this.dateFinValidite = dateFinValidite;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
 
 	@Override
 	public String toString() {
 		return "CartePaiement [id=" + id + ", nomProprietaire=" + nomProprietaire + ", prenomProprietaire="
 				+ prenomProprietaire + ", numero=" + Arrays.toString(numero) + ", cryptogramme="
-				+ Arrays.toString(cryptogramme) + ", dateFinValidite=" + dateFinValidite + "]";
+				+ Arrays.toString(cryptogramme) + ", dateFinValidite=" + dateFinValidite + ", user=" + user + "]";
 	}
+
+
+
 
 
 
