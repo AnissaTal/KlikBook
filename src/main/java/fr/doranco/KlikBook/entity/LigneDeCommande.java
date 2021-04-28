@@ -35,8 +35,8 @@ public class LigneDeCommande {
 	private Integer remiseArticle;
 
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "livre")
-	@Column(name = "livre_id", nullable = false)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "livre_id", nullable = false)
 	private Livre livre;
 	
 	@ManyToOne

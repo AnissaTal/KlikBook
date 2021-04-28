@@ -5,7 +5,8 @@ import java.util.Map;
 import fr.doranco.KlikBook.entity.User;
 
 
-public interface IUserDao {
+
+public interface IUserDao extends IEntityDao<User> {
 
 	
 	List<User> getUsers() throws Exception;

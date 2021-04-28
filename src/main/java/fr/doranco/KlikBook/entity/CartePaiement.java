@@ -3,6 +3,7 @@ package fr.doranco.KlikBook.entity;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ import javax.validation.constraints.NotNull;
 	@Column(name = "date_fin_validite", nullable = false)
 	private Date dateFinValidite;
 	
-	@ManyToOne 
+	@ManyToOne(cascade =CascadeType.ALL ) 
 	@JoinColumn(name="user_id",nullable=false)
 	private User user;
 	

@@ -32,7 +32,7 @@ public class Categorie {
 	private String nom;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "livre", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Livre> livres;
 
 	

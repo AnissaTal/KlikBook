@@ -56,7 +56,8 @@ public class Livre implements Serializable {
 	@Column(name = "stock", length = 100, nullable = false)
 	private Integer stock;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "livre", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "commentaire_id", nullable = false)
 	private List<Commentaire> commentaires;
 	
 	@ManyToOne

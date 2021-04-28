@@ -29,9 +29,9 @@ public class ArticlePanier implements Serializable{
 	@Column(name = "quantite", nullable = false)
 	private Integer quantite;
 	
-	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "livre")
-	@Column(name = "livre_id", nullable = false)
+	//@OneToOne(cascade = CascadeType.ALL, mappedBy = "livre")
+	@OneToOne(cascade =CascadeType.ALL)
+	@JoinColumn(name = "livre_id", nullable = false)
 	private Livre livre;
 	
 	

@@ -69,8 +69,8 @@ public class User {
 	@Size(min = 5, max = 20, message = "Le Email doit être compris entre 5 et 20 caractères")
 	private String email;
 	
-	@NotEmpty
-	@Column(name = "password", nullable = false)
+	@Nullable
+	@Column(name = "password", nullable = true)
 	@Size(min = 2, max = 15, message = "Le mot de passe doit être compris entre 2 et 15 caractères")
 	private byte[] password;
 	
@@ -90,7 +90,8 @@ public class User {
 	@Column(name = "carte_paiement_id", length = 10, nullable = true)
 	private Integer cartePaiementId;
 	
-	@Column(name = "cle_cryptage", nullable = false)
+	@Nullable
+	@Column(name = "cle_cryptage", nullable = true)
 	private byte[] cleCryptage;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
