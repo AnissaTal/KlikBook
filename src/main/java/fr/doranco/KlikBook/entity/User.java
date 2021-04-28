@@ -32,6 +32,7 @@ import com.sun.istack.Nullable;
 	@NamedQuery(name = "User.findAll", query = "FROM User u"),
 	@NamedQuery(name = "User.findByEmail", query = "FROM User u WHERE u.email = :email"),
 	@NamedQuery(name = "User.findByVille", query = "SELECT u FROM User u JOIN u.adresses a ON a.ville = :ville")	
+	
 })
 
 public class User {

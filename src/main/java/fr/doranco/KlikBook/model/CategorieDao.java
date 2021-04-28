@@ -14,12 +14,8 @@ public class CategorieDao extends AbstractEntityDao<Categorie> implements ICateg
 	public List<Categorie> getCategories() throws Exception {
 		Session session = HibernateConnector.getSession();
 
-		Query<Categorie> query = session.createQuery("FROM Categorie c", Categorie.class); // requete JPQL
-		// Query query = session.createNativeQuery("SELECT * FROM user", User.class); //
-		// requete SQL pure
-		// Query query = session.createNamedQuery("User.findAll", User.class); //
-		// requete prédéfinie
-
+		Query<Categorie> query = session.createQuery("FROM Categorie c", Categorie.class); 
+	
 		List<Categorie> categories = query.list();
 		if (session != null && session.isOpen())
 			session.close();
@@ -29,11 +25,10 @@ public class CategorieDao extends AbstractEntityDao<Categorie> implements ICateg
 	
 //je ne sais pas si cet methode dois etre en livre??
 	@Override
-	public List<Livre> getLivresByCategories(String nom) throws Exception {
-	//nom de la categorie 
+	public List<Livre> getLivresByCategories(String nomCategorie) throws Exception {
 		Session session = HibernateConnector.getSession();
 		Query<Livre> query = session.createNamedQuery("Livre.findByCategorie",Livre.class);
-		query.setParameter("nom", nom);
+		query.setParameter("nom", nomCategorie);
 		List<Livre> livres = query.list();	
 		if (session != null && session.isOpen())
 			session.close();

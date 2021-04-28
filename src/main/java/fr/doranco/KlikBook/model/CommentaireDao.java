@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import fr.doranco.KlikBook.entity.Commentaire;
-import fr.doranco.KlikBook.entity.Livre;
 
 public class CommentaireDao  extends AbstractEntityDao<Commentaire> implements ICommentaireDao {
 

@@ -3,31 +3,21 @@ package fr.doranco.KlikBook.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import fr.doranco.KlikBook.entity.User;
 
-public class UserDao implements IUserDao {
+public class UserDao extends AbstractEntityDao<User> implements IUserDao {
 
 	public UserDao() {
 	}
 
-	
-	
-
-	
-
 	@Override
 	public List<User> getUsers() throws Exception {
 		Session session = HibernateConnector.getSession();
-		// 3 possibilités d'exécuter une requete :
-		Query<User> query = session.createQuery("FROM User u", User.class); // requete JPQL
-		//Query query = session.createNativeQuery("SELECT * FROM user", User.class);  // requete SQL pure
-		//Query query = session.createNamedQuery("User.findAll", User.class);  // requete prédéfinie
-
+		Query<User> query = session.createQuery("FROM User u", User.class); 
+	
 		List<User> users = query.list();
 		if (session != null && session.isOpen())
 			session.close();
@@ -35,12 +25,10 @@ public class UserDao implements IUserDao {
 	}
 
 
-
-
 	@Override
 	public User getUserByEmail(String email) throws Exception {
 		Session session = HibernateConnector.getSession();
-		Query<User> query = session.createNamedQuery("User.findByEmail", User.class);  // requete prédéfinie
+		Query<User> query = session.createNamedQuery("User.findByEmail", User.class);  
 		query.setParameter("email", email);
 		User user = query.getSingleResult();
 		if (session != null && session.isOpen())
@@ -62,7 +50,7 @@ public class UserDao implements IUserDao {
 	@Override
 	public Map<String, List<User>> getUsersByVille() throws Exception {
 		Session session = HibernateConnector.getSession();
-		Query<String> query = session.createQuery("SELECT DISTINCT a.ville FROM Adresse a", String.class); // requete JPQL
+		Query<String> query = session.createQuery("SELECT DISTINCT a.ville FROM Adresse a", String.class);
 		List<String> villes = query.list();
 		Map<String, List<User>> map = new HashMap<String, List<User>>();
 		for (String ville : villes) {
@@ -70,13 +58,6 @@ public class UserDao implements IUserDao {
 			 map.put(ville, users);
 		}
 		return map;
-	}
-
-
-	@Override
-	public List<User> getUsersWithNoCommand() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

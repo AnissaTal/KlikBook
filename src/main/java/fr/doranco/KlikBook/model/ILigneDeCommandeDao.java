@@ -9,10 +9,7 @@ import fr.doranco.KlikBook.entity.User;
 
 
 public interface ILigneDeCommandeDao {
-
-	LigneDeCommande getLigneDeCommande(Integer id);
-	void addLigneDeCommande(LigneDeCommande ligneDeCommande);
-	void cancelLigneDeCommande(LigneDeCommande ligneDeCommande);
+	
 	List<LigneDeCommande> getLignesDeCommande(Integer commandId);
 
 

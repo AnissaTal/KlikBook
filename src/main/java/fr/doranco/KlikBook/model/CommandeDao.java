@@ -2,82 +2,12 @@ package fr.doranco.KlikBook.model;
 
 import java.util.List;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import fr.doranco.KlikBook.entity.Commande;
 
 public class CommandeDao implements ICommandeDao{
 
-	@Override
-	public Commande getCommande(Integer id) {
-		Session session = HibernateConnector.getSession();
-		Commande commande = session.get(Commande.class, id);
-		if (session != null && session.isOpen())
-			session.close();
-		return commande;
-	}
-
-	@Override
-	public void addCommande(Commande commande) throws Exception{
-		
-			Transaction tx = null;
-			Session session = null;
-			try {
-				session = HibernateConnector.getSession();
-				tx = session.beginTransaction();
-				session.save(commande);
-				tx.commit();
-			} catch (Exception ex) {
-				if (tx != null)
-					tx.rollback();
-				ex.printStackTrace();
-			} finally {
-				if (session != null && session.isOpen())
-					session.close();
-			}
-	
-	}
-
-	@Override
-	public void updateCommande(Commande commande) {
-		Transaction tx = null;
-		Session session = null;
-		try {
-			session = HibernateConnector.getSession();
-			tx = session.beginTransaction();
-			session.update(commande);
-			tx.commit();
-		} catch (Exception ex) {
-			if (tx != null)
-				tx.rollback();
-			ex.printStackTrace();
-		} finally {
-			if (session != null && session.isOpen())
-				session.close();
-		}
-		
-	}
-
-	@Override
-	public void cancelCommande(Integer id) {
-		Transaction tx = null;
-		Session session = null;
-		try {
-			session = HibernateConnector.getSession();
-			tx = session.beginTransaction();
-			session.remove(id);
-			tx.commit();
-		} catch (Exception ex) {
-			if (tx != null)
-				tx.rollback();
-			ex.printStackTrace();
-		} finally {
-			if (session != null && session.isOpen())
-				session.close();
-		}
-		
-	}
 
 	@Override
 	public List<Commande> getCommandes() {
@@ -92,7 +22,7 @@ public class CommandeDao implements ICommandeDao{
 	@Override
 	public List<Commande> getCommandesByUtilisateurId(Integer utilisateurId) {
 		Session session = HibernateConnector.getSession();
-			Query query = session.createQuery("FROM User u WHERE u.user := user");  // requete JPQL
+			Query query = session.createQuery("FROM User u WHERE u.user := user"); 
 			query.setParameter("user", utilisateurId);
 			return query.list();
 		

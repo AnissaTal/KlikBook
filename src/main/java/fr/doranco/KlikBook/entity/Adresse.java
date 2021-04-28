@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +18,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "adresse")
+@NamedQueries({
+	@NamedQuery(name = "Adresse.findAll", query = "FROM Adresse a"),
+	@NamedQuery(name = "Adresse.findByuserId", query = "SELECT a FROM Adresse a JOIN a.users u ON u.userId = :userId")	
+})
+
 public class Adresse implements Serializable {
 
 	private static final long serialVersionUID = 1L;

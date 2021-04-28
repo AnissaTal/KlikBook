@@ -2,7 +2,6 @@ package fr.doranco.KlikBook.model;
 
 import java.util.List;
 import java.util.Map;
-
 import fr.doranco.KlikBook.entity.User;
 
 
@@ -17,5 +16,4 @@ public interface IUserDao {
 
 	Map<String, List<User>> getUsersByVille() throws Exception;
 
-	List<User> getUsersWithNoCommand() throws Exception;
 }

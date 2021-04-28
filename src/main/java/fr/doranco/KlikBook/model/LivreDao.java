@@ -17,10 +17,8 @@ public class LivreDao extends AbstractEntityDao<Livre> implements ILivreDao {
 	public List<Livre> getLivres() throws Exception {
 		Session session = HibernateConnector.getSession();
 		
-		Query<Livre> query = session.createQuery("FROM Livre l", Livre.class); // requete JPQL
-		//Query query = session.createNativeQuery("SELECT * FROM user", User.class);  // requete SQL pure
-		//Query query = session.createNamedQuery("User.findAll", User.class);  // requete prédéfinie
-
+		Query<Livre> query = session.createQuery("FROM Livre l", Livre.class);
+	
 		List<Livre> livres = query.list();
 		if (session != null && session.isOpen())
 			session.close();
