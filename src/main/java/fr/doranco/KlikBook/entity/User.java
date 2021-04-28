@@ -74,8 +74,8 @@ public class User {
 	@Size(min = 2, max = 15, message = "Le mot de passe doit être compris entre 2 et 15 caractères")
 	private byte[] password;
 	
-	@NotNull
-	@Column(name = "telephone", length = 13, nullable = false)
+	@Nullable
+	@Column(name = "telephone", length = 13, nullable = true)
 	private Integer telephone;
 
 	@Nullable
@@ -122,29 +122,14 @@ public class User {
 	
 	public User(String nom, String prenom, @NotNull Date dateNaissance, @NotNull Boolean isActif,
 			@NotNull String profil,
-			@Size(min = 5, max = 20, message = "Le Email doit être compris entre 5 et 20 caractères") String email,
-			@Size(min = 2, max = 15, message = "Le mot de passe doit être compris entre 2 et 15 caractères") byte[] password,
-			@NotNull Integer telephone, Integer adresseFacturationId, Integer adresseLivraisonId,
-			Integer cartePaiementId, byte[] cleCryptage, List<Adresse> adresses, List<Commande> commandes,
-			List<CartePaiement> cartesPaiement, List<Commentaire> commentaires, List<ArticlePanier> panier) {
+			@Size(min = 5, max = 20, message = "Le Email doit être compris entre 5 et 20 caractères") String email) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
 		this.isActif = isActif;
 		this.profil = profil;
 		this.email = email;
-		this.password = password;
-		this.telephone = telephone;
-		this.adresseFacturationId = adresseFacturationId;
-		this.adresseLivraisonId = adresseLivraisonId;
-		this.cartePaiementId = cartePaiementId;
-		this.cleCryptage = cleCryptage;
-		this.adresses = adresses;
-		this.commandes = commandes;
-		this.cartesPaiement = cartesPaiement;
-		this.commentaires = commentaires;
-		this.panier = panier;
-		
+			
 		adresses = new ArrayList<Adresse>();
 		commandes = new ArrayList<Commande>();
 		cartesPaiement = new ArrayList<CartePaiement>();

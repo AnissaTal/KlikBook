@@ -6,7 +6,7 @@ import org.hibernate.query.Query;
 
 import fr.doranco.KlikBook.entity.Commande;
 
-public class CommandeDao implements ICommandeDao{
+public class CommandeDao  extends AbstractEntityDao<Commande> implements ICommandeDao{
 
 
 	@Override

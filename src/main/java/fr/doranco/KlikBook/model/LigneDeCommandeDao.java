@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import fr.doranco.KlikBook.entity.LigneDeCommande;
 
-public class LigneDeCommandeDao implements ILigneDeCommandeDao{
+public class LigneDeCommandeDao  extends AbstractEntityDao<LigneDeCommande> implements ILigneDeCommandeDao{
 
 
 
