@@ -21,14 +21,14 @@ public class UserMetier implements IUserMetier {
 	}
 
 	@Override
-	public User addUser(User user) throws Exception {
+	public void add(User user) throws Exception {
 
 		if (user == null) {
 			throw new NullPointerException("l'utilisateur à ajouter est NULL !");
 		}
 		if (user.getNom() == null || user.getNom().trim().isEmpty() || user.getPrenom() == null
 				|| user.getPrenom().trim().isEmpty() || user.getEmail() == null || user.getEmail().trim().isEmpty()
-				|| user.getPassword() == null || user.getPassword().trim().isEmpty()
+				|| user.getPassword() == null || user.getPassword().toString().trim().isEmpty()
 
 		) {
 			throw new IllegalArgumentException("tous les champs sont obligatoires");
@@ -42,8 +42,7 @@ public class UserMetier implements IUserMetier {
 		user.setPrenom(user.getPrenom().substring(0, 1).toUpperCase()
 				.concat(user.getPrenom().toLowerCase().substring(1, user.getPrenom().length())));
 
-		userDao.addUser(user);
-		return user;
+		 userDao.add(user);
 	}
 
 	@Override
@@ -55,31 +54,31 @@ public class UserMetier implements IUserMetier {
 	}
 
 	@Override
-	public void removeUser(Integer id) throws Exception {
+	public void remove(User user) throws Exception {
 		
-		if (getUserById(id) == null) {
+		if (getUserById(user.getId()) == null) {
 			throw new NullPointerException("L'utilisateur à supprimer n'existe pas !");
 		}
 
-		//userDao.removeUser(id);
+		userDao.remove(user);
 	}
 
 	@Override
-	public void updateUser(User user) throws Exception {
+	public void update (User user) throws Exception {
 		if (user == null) {
 			throw new NullPointerException("l'utilisateur à ajouter est NULL !");
 		}
 		if (user.getId() == null || user.getId() <= 0
 				|| user.getNom() == null || user.getNom().trim().isEmpty() || user.getPrenom() == null
 				|| user.getPrenom().trim().isEmpty() || user.getEmail() == null || user.getEmail().trim().isEmpty()
-				|| user.getPassword() == null || user.getPassword().trim().isEmpty()
+				|| user.getPassword() == null || user.getPassword().toString().trim().isEmpty()
 
 		) {
 			throw new IllegalArgumentException("tous les champs sont obligatoires");
 		}
-		//if (userDao.getUserById(user.getId()) == null)
-			//throw new NullPointerException("L'utilisateur à mettre à jour n'existe pas dans la bdd !");
-		userDao.updateUser(user);
+		if (userDao.getUserByEmail(user.getEmail()) == null)
+			throw new NullPointerException("L'utilisateur à mettre à jour n'existe pas dans la bdd !");
+		userDao.update(user);
 
 	}
 
@@ -98,6 +97,10 @@ public class UserMetier implements IUserMetier {
 
 	@Override
 	public User getUserByEmail(String email) throws Exception {
+
+		if (email == null)
+			throw new NullPointerException("Le mail de l'utilisateur à récupérer ne doit pas être NULL !");
+	
 		return userDao.getUserByEmail(email);
 	}
 

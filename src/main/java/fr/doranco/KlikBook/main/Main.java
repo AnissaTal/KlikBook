@@ -56,8 +56,8 @@ public class Main {
 			
 			
 			
-			adresseDao.getAdresses(1);
-			System.out.println(adresseDao);
+		//	adresseDao.getAdresses();
+		//	System.out.println(adresseDao);
 			
 		System.out.println("user ajouté : " + user1.getId() );
 		System.out.println("adresse userId : " + adresse11.getUser().getId());
