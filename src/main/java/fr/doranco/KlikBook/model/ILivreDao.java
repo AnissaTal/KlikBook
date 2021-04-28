@@ -7,7 +7,7 @@ import fr.doranco.KlikBook.entity.Livre;
 
 
 
-public interface ILivreDao {
+public interface ILivreDao extends IEntityDao<Livre>{
 
 	
 	List<Livre> getLivres() throws Exception;

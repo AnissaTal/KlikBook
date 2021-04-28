@@ -1,10 +1,13 @@
 package fr.doranco.KlikBook.model;
 
+import fr.doranco.KlikBook.entity.CartePaiement;
+
 import fr.doranco.KlikBook.entity.User;
 
-public interface ICartePaiementDao {
+
+public interface ICartePaiementDao  extends IEntityDao<CartePaiement> {
 	
-	User getUserByCartePaiement (Integer utilisateurId) throws Exception;
+	User getUserByCartePaiement (Integer cartePaiementId) throws Exception;
 	
 
 }
