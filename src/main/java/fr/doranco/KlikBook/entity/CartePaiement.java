@@ -43,7 +43,7 @@ import javax.validation.constraints.NotNull;
 	@Column(name = "date_fin_validite", nullable = false)
 	private Date dateFinValidite;
 	
-	//@OneToMany pas sure? 
+	@ManyToOne 
 	@JoinColumn(name="user_id",nullable=false)
 	private User user;
 	
