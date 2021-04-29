@@ -10,8 +10,8 @@ public interface IUserMetier {
 	User seConnecter(String email, String password) throws Exception;
 	User getUserByEmail(String email) throws Exception;
 	User getUserById(Integer id) throws Exception;
-	void addUser(UserDto userdto) throws Exception;
+	void addUser(UserDto userDto) throws Exception;
 	List<User> getUsers() throws Exception;
-	void removeUser(User user) throws Exception;
-	void updateUser (User user) throws Exception;
+	void removeUser(UserDto userDto) throws Exception;
+	void updateUser (UserDto userDto) throws Exception;
 }

@@ -45,9 +45,15 @@ public class UserMetier implements IUserMetier {
 				.concat(userDto.getPrenom().toLowerCase().substring(1, userDto.getPrenom().length())));
 		
          User user = new User();
-   
+         user.setNom(userDto.getNom().toUpperCase());
+ 		 user.setPrenom(userDto.getPrenom());
+ 		 user.setEmail(userDto.getEmail());
+ 		 
+ 		 user.setPassword(userDto.getPassword().getBytes());
+ 		    
+
         
-		 //userDao.add(userDto);
+		 userDao.add(user);
 	}
 
 	@Override
@@ -60,30 +66,46 @@ public class UserMetier implements IUserMetier {
 	}
 
 	@Override
-	public void removeUser(User user) throws Exception {
+	public void removeUser(UserDto userDto) throws Exception {
 		
-		if (getUserById(user.getId()) == null) {
+		if (getUserById(userDto.getId()) == null) {
 			throw new NullPointerException("L'utilisateur à supprimer n'existe pas !");
 		}
 
+		  User user = new User();
+	         user.setNom(userDto.getNom().toUpperCase());
+	 		 user.setPrenom(userDto.getPrenom());
+	 		 user.setEmail(userDto.getEmail());
+	 		 
+	 		 user.setPassword(userDto.getPassword().getBytes());
+		
 		userDao.remove(user);
 	}
 
 	@Override
-	public void updateUser (User user) throws Exception {
-		if (user == null) {
+	public void updateUser (UserDto userDto) throws Exception {
+		if (userDto == null) {
 			throw new NullPointerException("l'utilisateur à ajouter est NULL !");
 		}
-		if (user.getId() == null || user.getId() <= 0
-				|| user.getNom() == null || user.getNom().trim().isEmpty() || user.getPrenom() == null
-				|| user.getPrenom().trim().isEmpty() || user.getEmail() == null || user.getEmail().trim().isEmpty()
-				|| user.getPassword() == null || user.getPassword().toString().trim().isEmpty()
+		if ( userDto.getId() <= 0
+				|| userDto.getNom() == null || userDto.getNom().trim().isEmpty() || userDto.getPrenom() == null
+				|| userDto.getPrenom().trim().isEmpty() || userDto.getEmail() == null || userDto.getEmail().trim().isEmpty()
+				|| userDto.getPassword() == null || userDto.getPassword().toString().trim().isEmpty()
 
 		) {
 			throw new IllegalArgumentException("tous les champs sont obligatoires");
 		}
-		if (userDao.getUserByEmail(user.getEmail()) == null)
+		if (userDao.getUserByEmail(userDto.getEmail()) == null)
 			throw new NullPointerException("L'utilisateur à mettre à jour n'existe pas dans la bdd !");
+		
+		User user = new User();
+        user.setNom(userDto.getNom().toUpperCase());
+		 user.setPrenom(userDto.getPrenom());
+		 user.setEmail(userDto.getEmail());
+		 
+		 user.setPassword(userDto.getPassword().getBytes());
+	
+		
 		userDao.update(user);
 
 	}
