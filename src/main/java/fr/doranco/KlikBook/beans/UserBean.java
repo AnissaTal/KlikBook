@@ -7,21 +7,22 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import fr.doranco.KlikBook.Dto.UserDto;
 import fr.doranco.KlikBook.control.IUserMetier;
 import fr.doranco.KlikBook.control.UserMetier;
 import fr.doranco.KlikBook.entity.User;
+import fr.doranco.KlikBook.model.IUserDao;
 
 @ManagedBean(name = "userBean")
 public class UserBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	private final UserDto userDto = new UserDto();
 	private final IUserMetier userMetier = new UserMetier();
 
 	@ManagedProperty(name = "idUser", value = "")
 	private String idUser;
-
-	@ManagedProperty(name = "genre", value = "")
-	private String genre;
 
 	@ManagedProperty(name = "nom", value = "")
 	private String nom;
@@ -54,15 +55,14 @@ public class UserBean implements Serializable {
 	}
 
 	public String addUser() {
-		User user = new User();
-		//user.setGenre(genre);
-		user.setNom(nom);
-		user.setPrenom(prenom);
-		user.setEmail(email);
-		//user.setPassword(password);
+		UserDto userDto = new UserDto();
+		userDto.setNom(nom);
+		userDto.setPrenom(prenom);
+		userDto.setEmail(email);
+		userDto.setPassword(password);
 
 		try {
-			userMetier.addUser(user);
+			userMetier.add(user);
 			messageSuccess = "Inscription effectuée avec succès !";
 		} catch (Exception e) {
 			System.out.println(e);

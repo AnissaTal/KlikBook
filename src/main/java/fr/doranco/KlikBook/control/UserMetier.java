@@ -3,6 +3,7 @@ package fr.doranco.KlikBook.control;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.doranco.KlikBook.Dto.UserDto;
 import fr.doranco.KlikBook.entity.User;
 import fr.doranco.KlikBook.model.IUserDao;
 import fr.doranco.KlikBook.model.UserDao;
@@ -11,6 +12,7 @@ public class UserMetier implements IUserMetier {
 
 	private final IUserDao userDao = new UserDao();
 
+	
 	@Override
 	public User seConnecter(String email, String password) throws Exception {
 		User user = userDao.getUserByEmail(email);
@@ -21,28 +23,31 @@ public class UserMetier implements IUserMetier {
 	}
 
 	@Override
-	public void add(User user) throws Exception {
+	public void addUser(UserDto userDto) throws Exception {
 
-		if (user == null) {
+		if (userDto == null) {
 			throw new NullPointerException("l'utilisateur à ajouter est NULL !");
 		}
-		if (user.getNom() == null || user.getNom().trim().isEmpty() || user.getPrenom() == null
-				|| user.getPrenom().trim().isEmpty() || user.getEmail() == null || user.getEmail().trim().isEmpty()
-				|| user.getPassword() == null || user.getPassword().toString().trim().isEmpty()
+		if (userDto.getNom() == null || userDto.getNom().trim().isEmpty() || userDto.getPrenom() == null
+				|| userDto.getPrenom().trim().isEmpty() || userDto.getEmail() == null || userDto.getEmail().trim().isEmpty()
+				|| userDto.getPassword() == null || userDto.getPassword().toString().trim().isEmpty()
 
 		) {
 			throw new IllegalArgumentException("tous les champs sont obligatoires");
 		}
-		User userInDb = userDao.getUserByEmail(user.getEmail());
+		User userInDb = userDao.getUserByEmail(userDto.getEmail());
 		if (userInDb != null) {
 			throw new IllegalArgumentException("Vilation de contrainte ! L'email de l'utilisateur à ajouter existe déjà.");
 		}
 		
-		user.setNom(user.getNom().toUpperCase());
-		user.setPrenom(user.getPrenom().substring(0, 1).toUpperCase()
-				.concat(user.getPrenom().toLowerCase().substring(1, user.getPrenom().length())));
-
-		 userDao.add(user);
+		userDto.setNom(userDto.getNom().toUpperCase());
+		userDto.setPrenom(userDto.getPrenom().substring(0, 1).toUpperCase()
+				.concat(userDto.getPrenom().toLowerCase().substring(1, userDto.getPrenom().length())));
+		
+         User user = new User();
+   
+        
+		 //userDao.add(userDto);
 	}
 
 	@Override
@@ -55,7 +60,7 @@ public class UserMetier implements IUserMetier {
 	}
 
 	@Override
-	public void remove(User user) throws Exception {
+	public void removeUser(User user) throws Exception {
 		
 		if (getUserById(user.getId()) == null) {
 			throw new NullPointerException("L'utilisateur à supprimer n'existe pas !");
@@ -65,7 +70,7 @@ public class UserMetier implements IUserMetier {
 	}
 
 	@Override
-	public void update (User user) throws Exception {
+	public void updateUser (User user) throws Exception {
 		if (user == null) {
 			throw new NullPointerException("l'utilisateur à ajouter est NULL !");
 		}
