@@ -55,11 +55,11 @@ public class UserBean implements Serializable {
 
 	public String addUser() {
 		User user = new User();
-		user.setGenre(genre);
+		//user.setGenre(genre);
 		user.setNom(nom);
 		user.setPrenom(prenom);
 		user.setEmail(email);
-		user.setPassword(password);
+		//user.setPassword(password);
 
 		try {
 			userMetier.addUser(user);
