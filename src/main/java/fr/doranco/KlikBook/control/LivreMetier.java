@@ -11,7 +11,7 @@ public class LivreMetier implements ILivreMetier {
 	private final ILivreDao livreDao = new LivreDao(); 
 	
 	@Override
-	public void add(Livre livre) throws Exception {
+	public void addLivre(Livre livre) throws Exception {
 		if (livre == null) {
 			throw new NullPointerException("le livre à ajouter est NULL !");
 		}
@@ -38,7 +38,7 @@ public class LivreMetier implements ILivreMetier {
 	}
 
 	@Override
-	public void remove(Livre livre) throws Exception {
+	public void removeLivre(Livre livre) throws Exception {
 		if (livre == null) {
 			throw new NullPointerException("L'utilisateur à eliminer n'existe pas !"); }  
 		livreDao.remove(livre);
@@ -46,7 +46,7 @@ public class LivreMetier implements ILivreMetier {
 	}
 
 	@Override
-	public void update(Livre livre) throws Exception {
+	public void updateLivre(Livre livre) throws Exception {
 		if (livre == null) {
 			throw new NullPointerException("L'utilisateur metre à jours n'existe pas !"); }  
 		livreDao.update(livre);

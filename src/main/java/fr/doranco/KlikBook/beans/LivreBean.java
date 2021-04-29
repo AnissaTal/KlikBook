@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedProperty;
 
 import fr.doranco.KlikBook.control.ILivreMetier;
 import fr.doranco.KlikBook.control.LivreMetier;
+import fr.doranco.KlikBook.entity.Livre;
 
 @ManagedBean(name = "livreBeans")
 public class LivreBean implements Serializable{
@@ -25,5 +26,47 @@ public class LivreBean implements Serializable{
 
 	@ManagedProperty(name = "annee", value = "")
 	private String annee;
+	
+	@ManagedProperty(name = "prix", value = "")
+	private String prix;
+	
+	@ManagedProperty(name = "remise", value = "")
+	private String remise;
+	
+	@ManagedProperty(name = "stock", value = "")
+	private String stock;
+	
+	@ManagedProperty(name = "messageSuccess", value = "")
+	private static String messageSuccess;
+
+	@ManagedProperty(name = "messageError", value = "")
+	private static String messageError;
+	
+	static {
+		messageSuccess = "";
+		messageError = "";
+	}
+
+	public LivreBean() {
+	
+	}
+	
+	public String addLivre() {
+		Livre livre= new Livre();
+		
+		livre.setTitre(titre);
+		livre.setAuteur(auteur);
+		//livre.setAnnee(annee);
+		//livre.setPrix(prix);
+		
+		try {
+			livreMetier.addLivre(livre);
+			messageSuccess = "Livre ajouté avec succès";
+		}catch (Expection e) {
+			
+		}
+		
+		return "";
+	}
 	
 }

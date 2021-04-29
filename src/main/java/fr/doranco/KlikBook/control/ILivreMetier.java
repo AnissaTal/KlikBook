@@ -6,13 +6,13 @@ import fr.doranco.KlikBook.entity.Livre;
 
 public interface ILivreMetier {
 
-	void add(Livre livre) throws Exception;
+	void addLivre(Livre livre) throws Exception;
 
 	List<Livre> getLivres() throws Exception;
 
-	void remove(Livre livre) throws Exception;
+	void removeLivre(Livre livre) throws Exception;
 
-	void update(Livre livre) throws Exception;
+	void updateLivre(Livre livre) throws Exception;
 
 	List<Livre> getLivresByAuthor(String auteur) throws Exception;
 
