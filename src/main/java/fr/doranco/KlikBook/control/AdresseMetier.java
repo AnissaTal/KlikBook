@@ -23,7 +23,7 @@ public class AdresseMetier implements IAdresseMetier {
 	}
 
 	@Override
-	public List<Adresse> getAdresses(Integer userId) throws Exception {
+	public List<Adresse> getAdressesById(Integer userId) throws Exception {
 
 		if (getUserById(userId) == null) {
 			throw new NullPointerException("L'utilisateur à supprimer n'existe pas !");

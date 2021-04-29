@@ -5,7 +5,7 @@ import java.util.List;
 import fr.doranco.KlikBook.entity.ArticlePanier;
 
 
-public interface IArticlePanier extends IEntityDao<ArticlePanier> {
+public interface IArticlePanierDao extends IEntityDao<ArticlePanier> {
 
 	 List<ArticlePanier> getArticlePaniers(Integer userId) throws Exception ;
 }

@@ -49,8 +49,9 @@ public class UserMetier implements IUserMetier {
 	public List<User> getUsers() throws Exception {
 		List<User> users = userDao.getUsers();
 		if (users != null)
-			return users;
+		return users;
 		return new ArrayList<User>();
+
 	}
 
 	@Override

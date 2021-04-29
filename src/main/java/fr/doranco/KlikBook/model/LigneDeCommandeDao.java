@@ -10,10 +10,10 @@ public class LigneDeCommandeDao  extends AbstractEntityDao<LigneDeCommande> impl
 
 
 	@Override
-	public List<LigneDeCommande> getLignesDeCommande(Integer commandId) {
+	public List<LigneDeCommande> getLignesDeCommande(Integer commandeId) {
 			Session session = HibernateConnector.getSession();
 				Query query = session.createQuery("FROM Commande c WHERE c.commande := commande"); 
-				query.setParameter("commande", commandId);
+				query.setParameter("commande", commandeId);
 				return query.list();
 			
 		}

@@ -7,7 +7,7 @@ import fr.doranco.KlikBook.entity.LigneDeCommande;
 
 public interface ILigneDeCommandeDao extends IEntityDao<LigneDeCommande> {
 	
-	List<LigneDeCommande> getLignesDeCommande(Integer commandId);
+	List<LigneDeCommande> getLignesDeCommande(Integer commandeId);
 
 
 }

@@ -7,7 +7,7 @@ import org.hibernate.query.Query;
 import fr.doranco.KlikBook.entity.ArticlePanier;
 
 
-public class ArticlePanierDao  extends AbstractEntityDao<ArticlePanier> implements IArticlePanier {
+public class ArticlePanierDao  extends AbstractEntityDao<ArticlePanier> implements IArticlePanierDao {
 	@Override
 	public List<ArticlePanier> getArticlePaniers(Integer userId) throws Exception {
 		Session session = HibernateConnector.getSession();
