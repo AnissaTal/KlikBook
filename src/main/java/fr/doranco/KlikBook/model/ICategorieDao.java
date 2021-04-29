@@ -5,7 +5,8 @@ import java.util.List;
 import fr.doranco.KlikBook.entity.Categorie;
 import fr.doranco.KlikBook.entity.Livre;
 
-public interface ICategorieDao {
+
+public interface ICategorieDao extends IEntityDao<Categorie> {
 
 	List<Categorie> getCategories () throws Exception;
 	List<Livre> getLivresByCategories (String nom) throws Exception;

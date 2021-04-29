@@ -4,7 +4,7 @@ import java.util.List;
 
 import fr.doranco.KlikBook.entity.Commentaire;
 
-public interface ICommentaireDao {
+public interface ICommentaireDao extends IEntityDao<Commentaire> {
 	
 	List<Commentaire> commentarieByNote (Integer note) throws Exception;
 	
