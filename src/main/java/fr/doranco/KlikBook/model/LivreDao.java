@@ -17,7 +17,7 @@ public class LivreDao extends AbstractEntityDao<Livre> implements ILivreDao {
 	public List<Livre> getLivres() throws Exception {
 		Session session = HibernateConnector.getSession();
 		
-		Query<Livre> query = session.createQuery("FROM Livre l", Livre.class);
+		Query<Livre> query = session.createQuery("FROM livre l", Livre.class);
 	
 		List<Livre> livres = query.list();
 		if (session != null && session.isOpen())
@@ -25,6 +25,16 @@ public class LivreDao extends AbstractEntityDao<Livre> implements ILivreDao {
 		return livres;
 	}
 
+	@Override
+	public List<Livre> getLivresByCategories(String nom) throws Exception {
+		Session session = HibernateConnector.getSession();
+		Query<Livre> query = session.createNamedQuery("Livre.findByCategorie",Livre.class);
+		query.setParameter("nom", nom);
+		List<Livre> livres = query.list();	
+		if (session != null && session.isOpen())
+			session.close();
+		return livres;
+	}
 	@Override
 	public List<Livre> getLivresByAuthor(String auteur) throws Exception {
 		Session session = HibernateConnector.getSession();
@@ -49,7 +59,7 @@ public class LivreDao extends AbstractEntityDao<Livre> implements ILivreDao {
 
 	@Override
 	public void gestionStock(String titre) throws Exception {
-		
+		Session session = HibernateConnector.getSession();
 
 	}
 

@@ -7,18 +7,27 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "article")
+@Table(name = "livre")
+@NamedQueries({ @NamedQuery(name = "Livre.findAll", query = "FROM Livre l")
+	//	@NamedQuery(name = "Livre.findByCategorie", query = "SELECT l FROM Livre l JOIN l.categorie l ON l.nom=:nom"),
+	//	@NamedQuery(name = "Livre.findByAuthor", query = "SELECT l FROM Livre l JOIN l.auteur a ON "),
+		//@NamedQuery(name = "Livre.findByAnnee", query = "SELECT l FROM Livre l JOIN l.auteur a ON ")
+})
 public class Livre implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -35,45 +44,44 @@ public class Livre implements Serializable {
 	@NotEmpty
 	@Column(name = "auteur", length = 45, nullable = false)
 	private String auteur;
-	
-	
-	@NotEmpty
-	@Column(name = "annee",  nullable = false)
+
+	@NotNull
+	@Column(name = "annee", length = 4,nullable = false)
 	private Integer annee;
-	
-	
-	@NotEmpty
+
+	@NotNull
 	@Column(name = "prix", nullable = false)
 	private float prix;
 
-	@NotEmpty
+	@NotNull
 	@Column(name = "remise", nullable = false)
 	private Integer remise;
 
-	@NotEmpty
+	@NotNull
 	@Column(name = "stock", length = 100, nullable = false)
 	private Integer stock;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "commentaire_id", nullable = false)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "livre", fetch = FetchType.LAZY)
+	//@JoinColumn(name = "commentaire_id", nullable = false)
 	private List<Commentaire> commentaires;
-	
-	@ManyToOne
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categorie_id", nullable = false)
 	private Categorie categorie;
-	
+
 	public Livre() {
 		commentaires = new ArrayList<Commentaire>();
 		categorie = new Categorie();
 	}
 
-	public Livre( String titre, String auteur, Integer annee, float prix, Integer remise, Integer stock) {
+	public Livre(String titre, String auteur, Integer annee, float prix, Integer remise, Integer stock) {
 		this.titre = titre;
 		this.auteur = auteur;
 		this.annee = annee;
 		this.prix = prix;
 		this.remise = remise;
 		this.stock = stock;
+
 		commentaires = new ArrayList<Commentaire>();
 		categorie = new Categorie();
 	}
@@ -138,6 +146,10 @@ public class Livre implements Serializable {
 		return commentaires;
 	}
 
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
 	public Categorie getCategorie() {
 		return categorie;
 	}
@@ -149,15 +161,4 @@ public class Livre implements Serializable {
 				+ categorie + "]";
 	}
 
-
-
-
-
-
-
-	
-	
-	
-	
-	
 }

@@ -2,6 +2,7 @@ package fr.doranco.KlikBook.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,11 +28,11 @@ public class Commentaire {
 	@Column(name = "note", nullable = true)
 	private Integer note;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="livre_id",nullable=false)
 	private Livre livre;
 
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id",nullable=false)
 	private User user;
 

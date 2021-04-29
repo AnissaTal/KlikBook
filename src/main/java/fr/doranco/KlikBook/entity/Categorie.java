@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -32,7 +33,8 @@ public class Categorie {
 	private String nom;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,mappedBy ="categorie")
+	//@JoinColumn(name = "livre_id", nullable = false)
 	private List<Livre> livres;
 
 	
@@ -40,11 +42,13 @@ public class Categorie {
 		livres = new ArrayList<Livre>();
 	}
 
-	public Categorie(@NotNull Integer remise, @NotNull String nom, List<Livre> livres) {
-		super();
+	public Categorie(@NotNull Integer remise, @NotNull String nom) {
+		
 		this.remise = remise;
 		this.nom = nom;
+		
 		livres = new ArrayList<Livre>();
+		
 	}
 
 	public Integer getId() {
@@ -77,9 +81,10 @@ public class Categorie {
 
 	@Override
 	public String toString() {
-		return "Categorie [id=" + id + ", remise=" + remise + ", nom=" + nom + ", livres=" + livres + "]";
+		return "Categorie [remise=" + remise + ", nom=" + nom + "]";
 	}
 
+	
 
 	
 	

@@ -17,5 +17,7 @@ public interface ILivreDao extends IEntityDao<Livre>{
 	List<Livre> getLivresByAnnee(Integer annee) throws Exception;
 	
 	void gestionStock (String titre) throws Exception;
+
+	List<Livre> getLivresByCategories(String nomCategorie) throws Exception;
 	
 }
