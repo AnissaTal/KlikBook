@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.sun.istack.Nullable;
+
 
 @Entity
 @Table(name = "carte_paiement")public class CartePaiement {
@@ -23,25 +25,29 @@ import javax.validation.constraints.NotNull;
 	@Column(name = "id", nullable = false)
 	private int id;
 	
-	@NotNull
-	@Column(name = "nom_proprietaire", nullable = false)
+	@Nullable
+	@Column(name = "nom_proprietaire", nullable = true)
 	private String nomProprietaire;
-	@NotNull
-	@Column(name = "prenom_proprietaire", nullable = false)
+	@Nullable
+	@Column(name = "prenom_proprietaire", nullable = true)
 	private String prenomProprietaire;
 	
 	
-	@NotNull
-	@Column(name = "numero", nullable = false)
+	@Nullable
+	@Column(name = "numero", nullable = true)
 	private byte[] numero;
 	
-	@NotNull
-	@Column(name = "cryptogramme", nullable = false)
+	@Nullable
+	@Column(name = "cryptogramme", nullable = true)
 	private byte[] cryptogramme;
 	
-	@NotNull
-	@Column(name = "date_fin_validite", nullable = false)
+	@Nullable
+	@Column(name = "date_fin_validite", nullable = true)
 	private Date dateFinValidite;
+	
+	@Nullable
+	@Column(name = "cle_cryptage", nullable = true)
+	private byte[] cleCryptage;
 	
 	@ManyToOne(cascade =CascadeType.ALL ) 
 	@JoinColumn(name="user_id",nullable=false)
@@ -52,16 +58,6 @@ import javax.validation.constraints.NotNull;
 	}
 
 	
-	public CartePaiement(@NotNull String nomProprietaire, @NotNull String prenomProprietaire, @NotNull byte[] numero,
-			@NotNull byte[] cryptogramme, @NotNull Date dateFinValidite, User user) {
-	
-		this.nomProprietaire = nomProprietaire;
-		this.prenomProprietaire = prenomProprietaire;
-		this.numero = numero;
-		this.cryptogramme = cryptogramme;
-		this.dateFinValidite = dateFinValidite;
-		user= new User();
-	}
 
 
 	public int getId() {
@@ -132,6 +128,22 @@ import javax.validation.constraints.NotNull;
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+
+	
+	
+	public byte[] getCleCryptage() {
+		return cleCryptage;
+	}
+
+
+
+
+	public void setCleCryptage(byte[] cleCryptage) {
+		this.cleCryptage = cleCryptage;
+	}
+
+
 
 
 	@Override

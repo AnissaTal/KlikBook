@@ -3,11 +3,20 @@ package fr.doranco.KlikBook.control;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.crypto.SecretKey;
+
+import fr.doranco.KlikBook.Dto.AdresseDto;
+import fr.doranco.KlikBook.Dto.CartePaiementDto;
 import fr.doranco.KlikBook.Dto.UserDto;
+import fr.doranco.KlikBook.entity.Adresse;
+import fr.doranco.KlikBook.entity.CartePaiement;
 import fr.doranco.KlikBook.entity.User;
+import fr.doranco.KlikBook.enums.AlgorithmeCryptage;
+import fr.doranco.KlikBook.metier.cryptage.algo.CryptageDES;
+import fr.doranco.KlikBook.metier.cryptage.keys.GenerateKey;
 import fr.doranco.KlikBook.model.IUserDao;
 import fr.doranco.KlikBook.model.UserDao;
-
+import fr.doranco.KlikBook.utils.Dates;
 public class UserMetier implements IUserMetier {
 
 	private final IUserDao userDao = new UserDao();
@@ -35,27 +44,57 @@ public class UserMetier implements IUserMetier {
 		) {
 			throw new IllegalArgumentException("tous les champs sont obligatoires");
 		}
-		User userInDb = userDao.getUserByEmail(userDto.getEmail());
-		if (userInDb != null) {
-			throw new IllegalArgumentException("Vilation de contrainte ! L'email de l'utilisateur à ajouter existe déjà.");
-		}
 		
-		userDto.setNom(userDto.getNom().toUpperCase());
-		userDto.setPrenom(userDto.getPrenom().substring(0, 1).toUpperCase()
-				.concat(userDto.getPrenom().toLowerCase().substring(1, userDto.getPrenom().length())));
 		
          User user = new User();
          user.setNom(userDto.getNom().toUpperCase());
- 		 user.setPrenom(userDto.getPrenom());
+ 		 user.setPrenom(userDto.getPrenom().substring(0, 1).toUpperCase()
+ 				.concat(userDto.getPrenom().toLowerCase().substring(1, userDto.getPrenom().length())));
+ 		 user.setDateNaissance(Dates.convertStringToDateUtil(userDto.getDateNaissance()));
+  
  		 user.setEmail(userDto.getEmail());
  		 
- 		 user.setPassword(userDto.getPassword().getBytes());
- 		    
-
+ 		SecretKey secretKey = GenerateKey.getKey(AlgorithmeCryptage.DES.toString(), 56);
+		byte[] cleCryptage = secretKey.getEncoded();
+		byte[] cryptedPassword = CryptageDES.encrypt(userDto.getPassword(), secretKey);
+		user.setCleCryptage(cleCryptage);
+		user.setPassword(cryptedPassword);
+ 		 
+ 		 
+ 		 AdresseDto adresseDto = userDto.getAdresseDto();
+ 		 Adresse adresse = new Adresse();
+ 		 adresse.setNumero(new Integer(adresseDto.getNumero()));
+ 		 adresse.setRue(adresseDto.getRue());
+ 		 adresse.setVille(adresseDto.getVille());
+ 		 adresse.setCodePostal(adresseDto.getCodePostal());
         
+ 		 adresse.setUser(user);
+ 		 user.getAdresses().add(adresse);
+ 		 
+ 		//CartePaiementDto cartePaiementDto = new CartePaiementDto();
+ 		 CartePaiement cartePaiement = new CartePaiement();
+ 		 
+ 		 
+ 		if (userDto.getCartePaiementDto() != null) {
+			cartePaiement.setDateFinValidite(Dates.convertStringToDateUtil(userDto.getCartePaiementDto().getDateFinValidite()));
+			cartePaiement.setNomProprietaire((userDto.getCartePaiementDto().getNomProprietaire()).toUpperCase());
+			cartePaiement.setPrenomProprietaire((userDto.getCartePaiementDto().getPrenomProprietaire()).toUpperCase());
+			
+			
+			byte[] cryptedNumero = CryptageDES.encrypt(userDto.getCartePaiementDto().getNumero(), secretKey);
+			byte[] cryptedCryptogramme = CryptageDES.encrypt(userDto.getCartePaiementDto().getCryptogramme(), secretKey);
+			cartePaiement.setCleCryptage(cleCryptage);
+			cartePaiement.setNumero(cryptedNumero);
+			cartePaiement.setCryptogramme(cryptedCryptogramme);
+		
+ 		 cartePaiement.setUser(user);
+ 		 user.getCartesPaiement().add(cartePaiement);
+ 		 
+ 		}
 		 userDao.add(user);
 	}
 
+	
 	@Override
 	public List<User> getUsers() throws Exception {
 		List<User> users = userDao.getUsers();
@@ -68,7 +107,7 @@ public class UserMetier implements IUserMetier {
 	@Override
 	public void removeUser(UserDto userDto) throws Exception {
 		
-		if (getUserById(userDto.getId()) == null) {
+		if (userDto == null) {
 			throw new NullPointerException("L'utilisateur à supprimer n'existe pas !");
 		}
 
@@ -87,8 +126,7 @@ public class UserMetier implements IUserMetier {
 		if (userDto == null) {
 			throw new NullPointerException("l'utilisateur à ajouter est NULL !");
 		}
-		if ( userDto.getId() <= 0
-				|| userDto.getNom() == null || userDto.getNom().trim().isEmpty() || userDto.getPrenom() == null
+		if ( userDto.getNom() == null || userDto.getNom().trim().isEmpty() || userDto.getPrenom() == null
 				|| userDto.getPrenom().trim().isEmpty() || userDto.getEmail() == null || userDto.getEmail().trim().isEmpty()
 				|| userDto.getPassword() == null || userDto.getPassword().toString().trim().isEmpty()
 

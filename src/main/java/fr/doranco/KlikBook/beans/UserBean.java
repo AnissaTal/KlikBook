@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+
+import fr.doranco.KlikBook.Dto.AdresseDto;
+import fr.doranco.KlikBook.Dto.CartePaiementDto;
 import fr.doranco.KlikBook.Dto.UserDto;
 import fr.doranco.KlikBook.control.IUserMetier;
 import fr.doranco.KlikBook.control.UserMetier;
 import fr.doranco.KlikBook.entity.User;
+
 
 
 @ManagedBean(name = "userBean")
@@ -16,7 +20,6 @@ public class UserBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private final UserDto userDto = new UserDto();
 	private final IUserMetier userMetier = new UserMetier();
 
 	@ManagedProperty(name = "idUser", value = "")
@@ -37,11 +40,36 @@ public class UserBean implements Serializable {
 	@ManagedProperty(name = "password", value = "")
 	private String password;
 
-	
-
 	@ManagedProperty(name = "telephone", value = "")
 	private String telephone;
 	
+	@ManagedProperty(name = "numeroRue", value = "")
+	private String numeroRue;
+	
+	@ManagedProperty(name ="rue" , value=" ")
+	private String rue;
+	
+	@ManagedProperty(name ="ville" , value=" ")
+	private String ville;
+	
+	@ManagedProperty(name ="codePostal" , value=" ")
+	private String codePostal;
+	
+	
+	@ManagedProperty(name = "numeroCarte", value = "")
+	private String numeroCarte;
+	
+	@ManagedProperty(name = "nomProprietaire", value = "")
+	private String nomProprietaire;
+
+	@ManagedProperty(name = "prenomProprietaire", value = "")
+	private String prenomProprietaire;
+
+	@ManagedProperty(name = "cryptogramme", value = "")
+	private String cryptogramme;
+
+	@ManagedProperty(name = "dateFinValidite", value = "")
+	private String dateFinValidite;
 
 	@ManagedProperty(name = "messageSuccess", value = "")
 	private static String messageSuccess;
@@ -63,12 +91,31 @@ public class UserBean implements Serializable {
 
 	public String addUser() {
 
-		
 		UserDto userDto = new UserDto();
 		userDto.setNom(nom);
 		userDto.setPrenom(prenom);
 		userDto.setEmail(email);
+		userDto.setDateNaissance(dateDeNaissance);
+		userDto.setTelephone(telephone);
 		userDto.setPassword(password);
+		
+		AdresseDto adresseDto = new AdresseDto();
+		adresseDto.setNumero(numeroRue);
+		adresseDto.setRue(rue);
+		adresseDto.setVille(ville);
+		adresseDto.setCodePostal(codePostal);
+		
+		userDto.setAdresseDto(adresseDto);
+		
+		CartePaiementDto cartePaiementDto = new CartePaiementDto();
+		cartePaiementDto.setNomProprietaire(nomProprietaire);
+		cartePaiementDto.setPrenomProprietaire(prenomProprietaire);
+		cartePaiementDto.setDateFinValidite(dateFinValidite);
+		cartePaiementDto.setNumero(numeroCarte);
+		cartePaiementDto.setCryptogramme(cryptogramme);
+		
+		userDto.setCartePaiementDto(cartePaiementDto);
+	
 		try {
 			userMetier.addUser(userDto);
 			messageSuccess = "Inscription effectuée avec succès !";
@@ -88,23 +135,25 @@ public class UserBean implements Serializable {
 		return new ArrayList<User>();
 	}
 
-	public String remove(User user) {
+	public String remove() {
 		try {
-			userMetier.removeUser(userDto);
+//			User user = userMetier.getUserById(new Integer(idUser));
+//			user.setIsActif(false);
+//			userMetier.updateUser(user);
 		} catch (Exception e) {
 			messageError = "Erreur lors de la suppression de l'utilisateur !\n" + e.getMessage();
 		}
 		return "";
 	}
 
-	public String modifierUser(User user) {
+	public String modifierUser() {
 		try {
 			
-			idUser = String.valueOf(user.getId());
-			currentUserId = idUser;
-			prenom = user.getPrenom();
-			nom = user.getNom();
-			email = user.getEmail();
+//			idUser = String.valueOf(user.getId());
+//			currentUserId = idUser;
+//			prenom = user.getPrenom();
+//			nom = user.getNom();
+//			email = user.getEmail();
 		} catch (Exception e) {
 			messageError = "Erreur lors de la modififcatoin  de l'utilisateur !\n" + e.getMessage();
 		}
@@ -151,6 +200,22 @@ public class UserBean implements Serializable {
 		return prenom;
 	}
 
+	public String getDateDeNaissance() {
+		return dateDeNaissance;
+	}
+
+	public void setDateDeNaissance(String dateDeNaissance) {
+		this.dateDeNaissance = dateDeNaissance;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
@@ -173,6 +238,80 @@ public class UserBean implements Serializable {
 	
 	
 	
+	public String getNumeroRue() {
+		return numeroRue;
+	}
+
+	public void setNumeroRue(String numeroRue) {
+		this.numeroRue = numeroRue;
+	}
+
+	public String getRue() {
+		return rue;
+	}
+
+	public void setRue(String rue) {
+		this.rue = rue;
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
+	public String getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public String getNumeroCarte() {
+		return numeroCarte;
+	}
+
+	public void setNumeroCarte(String numeroCarte) {
+		this.numeroCarte = numeroCarte;
+	}
+
+	public String getNomProprietaire() {
+		return nomProprietaire;
+	}
+
+	public void setNomProprietaire(String nomProprietaire) {
+		this.nomProprietaire = nomProprietaire;
+	}
+
+	public String getPrenomProprietaire() {
+		return prenomProprietaire;
+	}
+
+	public void setPrenomProprietaire(String prenomProprietaire) {
+		this.prenomProprietaire = prenomProprietaire;
+	}
+
+	
+
+	public String getCryptogramme() {
+		return cryptogramme;
+	}
+
+	public void setCryptogramme(String cryptogramme) {
+		this.cryptogramme = cryptogramme;
+	}
+
+	public String getDateFinValidite() {
+		return dateFinValidite;
+	}
+
+	public void setDateFinValidite(String dateFinValidite) {
+		this.dateFinValidite = dateFinValidite;
+	}
+
 	public String getCurrentUserId() {
 		return currentUserId;
 	}

@@ -51,22 +51,22 @@ public class User {
 	@Column(name = "prenom", length = 45, nullable = false)
 	private String prenom;
 	
-	@NotNull
-	@Column(name = "date_naissance", nullable = false)
+	@Nullable
+	@Column(name = "date_naissance", nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date dateNaissance;
 	
-	@NotNull
-	@Column(name = "actif", length = 1, nullable = false)
+	@Nullable
+	@Column(name = "actif", length = 1, nullable = true)
 	private Boolean isActif;
 
-	@NotNull
-	@Column(name = "profil", length = 10, nullable = false)
+	@Nullable
+	@Column(name = "profil", length = 10, nullable = true)
 	private String profil;
 	
 	@NotEmpty
 	@Column(name = "email", nullable = false,unique=true)
-	@Size(min = 5, max = 20, message = "Le Email doit être compris entre 5 et 20 caractères")
+	@Size(message = "Le Email doit être compris entre 5 et 20 caractères")
 	private String email;
 	
 	@Nullable
