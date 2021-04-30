@@ -2,11 +2,12 @@ package fr.doranco.KlikBook.control;
 
 import java.util.List;
 
+import fr.doranco.KlikBook.Dto.LivreDto;
 import fr.doranco.KlikBook.entity.Livre;
 
 public interface ILivreMetier {
 
-	void addLivre(Livre livre) throws Exception;
+  void addLivre(LivreDto livreDto) throws Exception ;
 
 	List<Livre> getLivres() throws Exception;
 

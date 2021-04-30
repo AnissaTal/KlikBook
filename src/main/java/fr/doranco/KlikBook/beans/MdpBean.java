@@ -64,8 +64,8 @@ public class MdpBean implements Serializable {
 					context.addMessage(null, new FacesMessage("L'utilisateur avec l'email '" + email + "' n'a pas été trouvé !"));
 					return "";
 				}
-				user.setPassword(nouveauMdp);
-				userMetier.updateUser(user);
+		//		user.setPassword(nouveauMdp);
+			//	userMetier.updateUser(user);
 				this.messageColor = "green";
 				context.addMessage(null, new FacesMessage("Mot de passe modifié avec succès !"));
 				return "";

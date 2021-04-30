@@ -2,6 +2,7 @@ package fr.doranco.KlikBook.control;
 
 import java.util.List;
 
+import fr.doranco.KlikBook.Dto.LivreDto;
 import fr.doranco.KlikBook.entity.Livre;
 import fr.doranco.KlikBook.model.ILivreDao;
 import fr.doranco.KlikBook.model.LivreDao;
@@ -10,25 +11,35 @@ public class LivreMetier implements ILivreMetier {
 
 	private final ILivreDao livreDao = new LivreDao(); 
 	
+
+	
 	@Override
-	public void addLivre(Livre livre) throws Exception {
-		if (livre == null) {
+	public void addLivre(LivreDto livreDto) throws Exception {
+		if (livreDto == null) {
 			throw new NullPointerException("le livre à ajouter est NULL !");
 		}
 		
-		if (livre.getTitre() == null || livre.getTitre().trim().isEmpty() ||
-				livre.getAuteur() == null|| livre.getAuteur().isEmpty() 
-				|| livre.getAnnee() == null
-				//|| livre.getPrix() == null 
-				|| livre.getRemise()== null
-				|| livre.getStock()== null
-
+		if (livreDto.getTitre() == null || livreDto.getTitre().trim().isEmpty() ||
+				livreDto.getAuteur() == null||livreDto.getAuteur().isEmpty() 
+				|| livreDto.getAnnee() == null
+				|| livreDto.getPrix() == null 
+				|| livreDto.getRemise()== null
+				|| livreDto.getStock()== null
 		) {
 			throw new IllegalArgumentException("tous les champs sont obligatoires");
 		}
+		
+		Livre livre = new Livre();
+		livre.setTitre(livreDto.getTitre());
+		livre.setAuteur(livreDto.getAuteur());
+		livre.setAnnee(Integer.parseInt(livreDto.getAnnee()));
+		livre.setPrix(Integer.parseInt(livreDto.getPrix()));
+		livre.setRemise(Integer.parseInt(livreDto.getRemise()));
+		livre.setStock(Integer.parseInt(livreDto.getStock()));
+			
 		livreDao.add(livre);
-
 	}
+
 
 	
 	@Override

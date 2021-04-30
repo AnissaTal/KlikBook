@@ -1,6 +1,7 @@
 package fr.doranco.KlikBook.control;
 import java.util.List;
 
+import fr.doranco.KlikBook.Dto.AdresseDto;
 import fr.doranco.KlikBook.entity.Adresse;
 import fr.doranco.KlikBook.model.AdresseDao;
 
@@ -9,16 +10,21 @@ public class AdresseMetier implements IAdresseMetier {
 	private final AdresseDao adresseDao = new AdresseDao();
 
 	@Override
-	public void addAdresse(Adresse adresse) throws Exception {
-		if (adresse == null) {
+	public void addAdresse(AdresseDto adresseDto) throws Exception {
+		if (adresseDto == null) {
 			throw new NullPointerException("L'adresse à ajouter ne doit pas être NULL !");
 		}
-		if (adresse.getNumero() <= 0 || adresse.getRue() == null || adresse.getRue().isEmpty()
-				|| adresse.getVille() == null || adresse.getVille().isEmpty() || adresse.getCodePostal() == null
-				|| adresse.getCodePostal().isEmpty()) {
+		if ( adresseDto.getRue() == null || adresseDto.getRue().isEmpty()
+				|| adresseDto.getVille() == null || adresseDto.getVille().isEmpty() || adresseDto.getCodePostal() == null
+				|| adresseDto.getCodePostal().isEmpty()) {
 
 			throw new IllegalArgumentException("Tous les paramètres de l'adresse à ajouter sont obligatoires");
 		}
+		
+		Adresse adresse = new Adresse();
+		adresse.setRue(adresseDto.getRue());
+		adresse.setNumero(Integer.parseInt(adresseDto.getNumero()));
+		
 		adresseDao.add(adresse);
 	}
 

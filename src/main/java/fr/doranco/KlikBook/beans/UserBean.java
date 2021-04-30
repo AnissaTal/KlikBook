@@ -3,15 +3,13 @@ package fr.doranco.KlikBook.beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-
 import fr.doranco.KlikBook.Dto.UserDto;
 import fr.doranco.KlikBook.control.IUserMetier;
 import fr.doranco.KlikBook.control.UserMetier;
 import fr.doranco.KlikBook.entity.User;
-import fr.doranco.KlikBook.model.IUserDao;
+
 
 @ManagedBean(name = "userBean")
 public class UserBean implements Serializable {
@@ -30,11 +28,20 @@ public class UserBean implements Serializable {
 	@ManagedProperty(name = "prenom", value = "")
 	private String prenom;
 
+	@ManagedProperty(name = "dateDeNaissance", value = "")
+	private String dateDeNaissance;
+	
 	@ManagedProperty(name = "email", value = "")
 	private String email;
 
 	@ManagedProperty(name = "password", value = "")
 	private String password;
+
+	
+
+	@ManagedProperty(name = "telephone", value = "")
+	private String telephone;
+	
 
 	@ManagedProperty(name = "messageSuccess", value = "")
 	private static String messageSuccess;
@@ -55,23 +62,15 @@ public class UserBean implements Serializable {
 	}
 
 	public String addUser() {
-<<<<<<< HEAD
-		User user = new User();
-		user.setGenre(genre);
-		user.setNom(nom);
-		user.setPrenom(prenom);
-		user.setEmail(email);
-		user.setPassword(password);
-=======
+
+		
 		UserDto userDto = new UserDto();
 		userDto.setNom(nom);
 		userDto.setPrenom(prenom);
 		userDto.setEmail(email);
 		userDto.setPassword(password);
->>>>>>> branch 'main' of https://github.com/AnissaTal/KlikBook.git
-
 		try {
-			userMetier.add(user);
+			userMetier.addUser(userDto);
 			messageSuccess = "Inscription effectuée avec succès !";
 		} catch (Exception e) {
 			System.out.println(e);
@@ -91,7 +90,7 @@ public class UserBean implements Serializable {
 
 	public String remove(User user) {
 		try {
-			userMetier.removeUser(user.getId());
+			userMetier.removeUser(userDto);
 		} catch (Exception e) {
 			messageError = "Erreur lors de la suppression de l'utilisateur !\n" + e.getMessage();
 		}
@@ -103,7 +102,6 @@ public class UserBean implements Serializable {
 			
 			idUser = String.valueOf(user.getId());
 			currentUserId = idUser;
-			genre = user.getGenre();
 			prenom = user.getPrenom();
 			nom = user.getNom();
 			email = user.getEmail();
@@ -118,13 +116,12 @@ public class UserBean implements Serializable {
 			
 
 			User user = userMetier.getUserById(Integer.parseInt(currentUserId));
-			user.setGenre(genre);
 			user.setNom(nom);
 			user.setPrenom(prenom);
 			user.setEmail(email);
-			user.setPassword(password);
+			//user.setPassword(password);
 
-			userMetier.updateUser(user);
+			//userMetier.updateUser(user);
 			messageSuccess = "la mise à jour effectuée avec succès !";
 		} catch (Exception e) {
 			System.out.println(e);
@@ -141,13 +138,6 @@ public class UserBean implements Serializable {
 		this.idUser = idUser;
 	}
 
-	public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
 
 	public String getNom() {
 		return nom;
